@@ -4,7 +4,7 @@
 **
 ** 
 */
-package org.magnum.videoup.client;
+package org.jcruells.sm.client;
 
 import java.util.concurrent.Callable;
 

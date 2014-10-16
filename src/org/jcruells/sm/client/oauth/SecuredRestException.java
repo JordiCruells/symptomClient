@@ -4,7 +4,7 @@
  **
  ** 
  */
-package org.magnum.videoup.client.oauth;
+package org.jcruells.sm.client.oauth;
 
 /**
  * A special class made to specify exceptions that are thrown by our

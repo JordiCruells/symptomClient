@@ -4,10 +4,10 @@
  **
  ** 
  */
-package org.magnum.videoup.client;
+package org.jcruells.sm.client;
 
-import org.magnum.videoup.client.oauth.SecuredRestBuilder;
-import org.magnum.videoup.client.unsafe.EasyHttpClient;
+import org.jcruells.sm.client.oauth.SecuredRestBuilder;
+import org.jcruells.sm.client.unsafe.EasyHttpClient;
 
 import retrofit.RestAdapter.LogLevel;
 import retrofit.client.ApacheClient;

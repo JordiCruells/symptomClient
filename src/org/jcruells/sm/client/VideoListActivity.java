@@ -1,9 +1,11 @@
-package org.magnum.videoup.client;
+package org.jcruells.sm.client;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.Callable;
+
+import org.magnum.videoup.client.R;
 
 import android.app.Activity;
 import android.content.Intent;

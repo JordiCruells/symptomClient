@@ -4,7 +4,7 @@
 **
 ** 
 */
-package org.magnum.videoup.client.unsafe;
+package org.jcruells.sm.client.unsafe;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one

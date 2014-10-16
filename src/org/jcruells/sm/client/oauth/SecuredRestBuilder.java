@@ -4,7 +4,7 @@
  **
  ** 
  */
-package org.magnum.videoup.client.oauth;
+package org.jcruells.sm.client.oauth;
 
 import java.util.ArrayList;
 import java.util.List;
