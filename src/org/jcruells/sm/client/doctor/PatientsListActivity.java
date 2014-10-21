@@ -1,5 +1,10 @@
-package org.jcruells.sm.client;
+package org.jcruells.sm.client.doctor;
 
+
+import org.jcruells.sm.client.App;
+import org.jcruells.sm.client.R;
+import org.jcruells.sm.client.R.id;
+import org.jcruells.sm.client.R.layout;
 
 import android.app.Activity;
 import android.os.Bundle;

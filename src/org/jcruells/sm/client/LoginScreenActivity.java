@@ -3,6 +3,9 @@ package org.jcruells.sm.client;
 import java.util.Collection;
 import java.util.concurrent.Callable;
 
+import org.jcruells.sm.client.doctor.PatientsListActivity;
+import org.jcruells.sm.client.patient.CheckinsListActivity;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

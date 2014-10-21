@@ -29,11 +29,11 @@
             android:label="@string/title_activity_video_list" >
         </activity>
         <activity
-            android:name="org.jcruells.sm.client.PatientsListActivity"
+            android:name="org.jcruells.sm.client.doctor.PatientsListActivity"
             android:label="@string/title_activity_patients_list" >
         </activity>
         <activity
-            android:name="org.jcruells.sm.client.CheckinsListActivity"
+            android:name="org.jcruells.sm.client.patient.CheckinsListActivity"
             android:label="@string/title_activity_checkins_list" >
         </activity>
     </application>
