@@ -11,8 +11,10 @@ import org.jcruells.sm.client.unsafe.EasyHttpClient;
 
 import retrofit.RestAdapter.LogLevel;
 import retrofit.client.ApacheClient;
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 public class VideoSvc {
 
@@ -21,6 +23,10 @@ public class VideoSvc {
 	private static VideoSvcApi videoSvc_;
 
 	public static synchronized VideoSvcApi getOrShowLogin(Context ctx) {
+		
+		Log.d(App.DEBUG_TAG, "VideoSvc getOrShowLogin");
+		
+		
 		if (videoSvc_ != null) {
 			return videoSvc_;
 		} else {
@@ -31,10 +37,14 @@ public class VideoSvc {
 	}
 
 	public static synchronized VideoSvcApi init(String server, String user,
-			String pass) {
+			String pass, Application app) {
 
+		Log.d(App.DEBUG_TAG, "VideoSvc init");
+				
 		videoSvc_ = new SecuredRestBuilder()
 				.setLoginEndpoint(server + VideoSvcApi.TOKEN_PATH)
+				.setUserDataEndpoint(server + UserSvcApi.USER_SVC_PATH)
+				.setContext(app)
 				.setUsername(user)
 				.setPassword(pass)
 				.setClientId(CLIENT_ID)

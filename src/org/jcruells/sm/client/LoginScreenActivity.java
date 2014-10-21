@@ -3,8 +3,6 @@ package org.jcruells.sm.client;
 import java.util.Collection;
 import java.util.concurrent.Callable;
 
-import org.magnum.videoup.client.R;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,12 +34,15 @@ public class LoginScreenActivity extends Activity {
 
 	@InjectView(R.id.server)
 	protected EditText server_;
+	
+	App context;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login_screen);
 
+		context = (App) getApplicationContext();
 		ButterKnife.inject(this);
 	}
 
@@ -50,8 +51,10 @@ public class LoginScreenActivity extends Activity {
 		String user = userName_.getText().toString();
 		String pass = password_.getText().toString();
 		String server = server_.getText().toString();
+		
+		final App app = ((App)getApplicationContext());
 
-		final VideoSvcApi svc = VideoSvc.init(server, user, pass);
+		final VideoSvcApi svc = VideoSvc.init(server, user, pass, app);
 
 		CallableTask.invoke(new Callable<Collection<Video>>() {
 
@@ -65,9 +68,30 @@ public class LoginScreenActivity extends Activity {
 			public void success(Collection<Video> result) {
 				// OAuth 2.0 grant was successful and we
 				// can talk to the server, open up the video listing
-				startActivity(new Intent(
-						LoginScreenActivity.this,
-						VideoListActivity.class));
+				
+				Log.d(App.DEBUG_TAG, "login success");
+				
+				String role = app.getUser().getRole();
+				String name = app.getUser().getName();
+				
+				
+				Log.d(App.DEBUG_TAG, "role:" + role);
+				Log.d(App.DEBUG_TAG, "name:" + name);
+				
+				
+				// Open the apropiate activity according to the role of the user 
+				if (context.isDoctor()) {
+				
+					startActivity(new Intent(
+							LoginScreenActivity.this,
+							PatientsListActivity.class));
+					
+				} else {
+					
+					startActivity(new Intent(
+							LoginScreenActivity.this,
+							CheckinsListActivity.class));
+				}
 			}
 
 			@Override

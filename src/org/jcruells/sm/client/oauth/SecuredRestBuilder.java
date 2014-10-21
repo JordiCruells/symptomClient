@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.concurrent.Executor;
 
 import org.apache.commons.io.IOUtils;
+import org.jcruells.sm.client.App;
+import org.jcruells.sm.client.User;
 
 import retrofit.Endpoint;
 import retrofit.ErrorHandler;
@@ -27,10 +29,14 @@ import retrofit.client.Request;
 import retrofit.client.Response;
 import retrofit.converter.Converter;
 import retrofit.mime.FormUrlEncodedTypedOutput;
+import android.app.Application;
 
 import com.google.common.io.BaseEncoding;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+
+
 
 /**
  * A Builder class for a Retrofit REST Adapter. Extends the default implementation by providing logic to
@@ -59,17 +65,21 @@ public class SecuredRestBuilder extends RestAdapter.Builder {
 		private boolean loggedIn;
 		private Client client;
 		private String tokenIssuingEndpoint;
+		private String userDataEndpoint;
+		private Application context;
 		private String username;
 		private String password;
 		private String clientId;
 		private String clientSecret;
 		private String accessToken;
 
-		public OAuthHandler(Client client, String tokenIssuingEndpoint, String username,
+		public OAuthHandler(Client client, String tokenIssuingEndpoint, String userDataEndpoint, Application context, String username,
 				String password, String clientId, String clientSecret) {
 			super();
 			this.client = client;
 			this.tokenIssuingEndpoint = tokenIssuingEndpoint;
+			this.userDataEndpoint =userDataEndpoint;
+			this.context = context;
 			this.username = username;
 			this.password = password;
 			this.clientId = clientId;
@@ -89,8 +99,16 @@ public class SecuredRestBuilder extends RestAdapter.Builder {
 		 */
 		@Override
 		public void intercept(RequestFacade request) {
+			
+
+			android.util.Log.d(App.DEBUG_TAG, "SecuredRestBuilder intercept");
+			
+			
 			// If we're not logged in, login and store the authentication token.
 			if (!loggedIn) {
+				
+				android.util.Log.d(App.DEBUG_TAG, "in if intercept");
+				
 				try {
 					// This code below programmatically builds an OAuth 2.0 password
 					// grant request and sends it to the server. 
@@ -126,25 +144,73 @@ public class SecuredRestBuilder extends RestAdapter.Builder {
 					// Request the password grant.
 					Response resp = client.execute(req);
 					
+					android.util.Log.d(App.DEBUG_TAG, "after client execute");
+					
 					// Make sure the server responded with 200 OK
 					if (resp.getStatus() < 200 || resp.getStatus() > 299) {
+						
+						android.util.Log.d(App.DEBUG_TAG, "bad credentials 1");
 						// If not, we probably have bad credentials
 						throw new SecuredRestException("Login failure: "
 								+ resp.getStatus() + " - " + resp.getReason());
 					} else {
 						// Extract the string body from the response
+						
+						
 				        String body = IOUtils.toString(resp.getBody().in());
 						
+				        android.util.Log.d(App.DEBUG_TAG, "BODY:" + body);
+				        
 						// Extract the access_token (bearer token) from the response so that we
 				        // can add it to future requests.
+				        
+				        
 						accessToken = new Gson().fromJson(body, JsonObject.class).get("access_token").getAsString();
 						
-						// Add the access_token to this request as the "Authorization"
-						// header.
-						request.addHeader("Authorization", "Bearer " + accessToken);	
 						
-						// Let future calls know we've already fetched the access token
-						loggedIn = true;
+						
+						//Add the login to request the user's data whenever a successful login is done
+						List<Header> lh = new ArrayList<Header>();
+						lh.add(new Header("Authorization", "Bearer " + accessToken));
+						
+						android.util.Log.d(App.DEBUG_TAG, "call to user data");
+						
+						Request reqUserData = new Request("GET", userDataEndpoint,lh, null);
+						Response respUserData = client.execute(reqUserData);
+						
+						System.out.println("status:" + respUserData.getStatus());
+						
+						// Make sure the server responded with 200 OK
+						if (respUserData.getStatus() < 200 || respUserData.getStatus() > 299) {
+							// Something went wrong retrieving the user's data
+							throw new SecuredRestException("Failure when retrieving user's data: "
+									+ respUserData.getStatus() + " - " + respUserData.getReason());
+							
+							
+						} else {
+							
+							android.util.Log.d(App.DEBUG_TAG, "call to user data ok");
+							
+							// Obtain user from message body and store it the application object (context)
+							body = IOUtils.toString(respUserData.getBody().in());
+							
+							Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+							User user = (User) (gson.fromJson(body, User.class));
+							
+							android.util.Log.d(App.DEBUG_TAG, "user saved to application");
+							
+							((App) context).setUser(user);
+							
+							android.util.Log.d(App.DEBUG_TAG, "user is:" + user);
+							
+							// Add the access_token to this request as the "Authorization"
+							// header.
+							request.addHeader("Authorization", "Bearer " + accessToken);	
+							
+							// Let future calls know we've already fetched the access token
+							loggedIn = true;
+						}
+							
 					}
 				} catch (Exception e) {
 					throw new SecuredRestException(e);
@@ -162,6 +228,8 @@ public class SecuredRestBuilder extends RestAdapter.Builder {
 	private String username;
 	private String password;
 	private String loginUrl;
+	private Application context;
+	private String userDataUrl;
 	private String clientId;
 	private String clientSecret = "";
 	private Client client;
@@ -171,6 +239,16 @@ public class SecuredRestBuilder extends RestAdapter.Builder {
 		return this;
 	}
 
+	public SecuredRestBuilder setUserDataEndpoint(String endpoint){
+		userDataUrl = endpoint;
+		return this;
+	}
+	
+	public SecuredRestBuilder setContext(Application context){
+		this.context= context;
+		return this;
+	}
+	
 	@Override
 	public SecuredRestBuilder setEndpoint(String endpoint) {
 		return (SecuredRestBuilder) super.setEndpoint(endpoint);
@@ -272,7 +350,7 @@ public class SecuredRestBuilder extends RestAdapter.Builder {
 		if (client == null) {
 			client = new OkClient();
 		}
-		OAuthHandler hdlr = new OAuthHandler(client, loginUrl, username, password, clientId, clientSecret);
+		OAuthHandler hdlr = new OAuthHandler(client, loginUrl, userDataUrl, context, username, password, clientId, clientSecret);
 		setRequestInterceptor(hdlr);
 
 		return super.build();
