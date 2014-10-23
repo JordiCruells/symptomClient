@@ -43,7 +43,7 @@ public class LoginScreenActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_login_screen);
+		setContentView(R.layout.login_screen_activity);
 
 		context = (App) getApplicationContext();
 		ButterKnife.inject(this);
@@ -83,7 +83,7 @@ public class LoginScreenActivity extends Activity {
 				
 				
 				// Open the apropiate activity according to the role of the user 
-				if (context.isDoctor()) {
+				if (context.isDoctorRole()) {
 				
 					startActivity(new Intent(
 							LoginScreenActivity.this,

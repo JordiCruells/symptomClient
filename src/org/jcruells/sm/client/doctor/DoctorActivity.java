@@ -11,7 +11,7 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class PatientsListActivity extends Activity {
+public class DoctorActivity extends Activity {
 	
 	@InjectView(R.id.doctorName)
 	protected TextView doctorName_;
@@ -22,7 +22,7 @@ public class PatientsListActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
-		Log.d(App.DEBUG_TAG, "PatientsListActivity onCreate");
+		Log.d(App.DEBUG_TAG, "DoctorActivity onCreate");
 		setContentView(R.layout.doctor_activity);
 		context = (App) getApplicationContext();
 		ButterKnife.inject(this);
@@ -34,7 +34,7 @@ public class PatientsListActivity extends Activity {
 		
 		
 		super.onResume();
-		Log.d(App.DEBUG_TAG, "PatientsListActivity onResume");
+		Log.d(App.DEBUG_TAG, "DoctorActivity onResume");
 		doctorName_.setText(context.getUser().getName());
 	}
 

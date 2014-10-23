@@ -199,7 +199,11 @@ public class SecuredRestBuilder extends RestAdapter.Builder {
 							
 							android.util.Log.d(App.DEBUG_TAG, "user saved to application");
 							
-							((App) context).setUser(user);
+							App app = (App) context;
+							app.setUser(user);
+							
+							android.util.Log.d(App.DEBUG_TAG, "call to initializeDB");
+							app.startDB();
 							
 							android.util.Log.d(App.DEBUG_TAG, "user is:" + user);
 							

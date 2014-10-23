@@ -33,7 +33,15 @@
             android:label="@string/title_activity_patients_list" >
         </activity>
         <activity
+            android:name="org.jcruells.sm.client.doctor.DoctorActivity"
+            android:label="@string/title_activity_patients_list" >
+        </activity>
+        <activity
             android:name="org.jcruells.sm.client.patient.CheckinsListActivity"
+            android:label="@string/title_activity_checkins_list" >
+        </activity>
+         <activity
+            android:name="org.jcruells.sm.client.patient.PatientActivity"
             android:label="@string/title_activity_checkins_list" >
         </activity>
     </application>

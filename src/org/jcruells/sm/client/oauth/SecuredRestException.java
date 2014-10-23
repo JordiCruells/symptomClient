@@ -18,6 +18,11 @@ package org.jcruells.sm.client.oauth;
  */
 public class SecuredRestException extends RuntimeException {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public SecuredRestException() {
 		super();
 	}
