@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+	<LinearLayout 
+	    android:layout_width="fill_parent"
+	    android:layout_height="match_parent"
+	    android:orientation="vertical" >
+	
+	    <TextView
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:background="@color/background_dark"
+	        android:text="@string/question_pain"
+	        android:textColor="@color/text_light"
+	        android:paddingTop="10dp"
+	        android:paddingBottom="10dp"
+	        android:gravity="center" />
+	    
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" >
+			
+			<Spinner
+			    android:id="@+id/selPainLevel"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="1" />
+	
+		    <Button
+		        android:id="@+id/btnChangePainInfo"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="0"
+		        android:text="@string/action_change" />   
+		        
+		    
+		    
+	    </LinearLayout>
+	    
+	    <TextView
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/question_medication"
+	        android:background="@color/background_dark"
+	        android:textColor="@color/text_light"
+	        android:paddingTop="10dp"
+	        android:paddingBottom="10dp"
+	        android:gravity="center" />
+	    
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" >
+	
+		  	<TextView
+		        android:id="@+id/answerMedication"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="1"
+		        android:paddingLeft="10dp"
+		        android:text="@string/info_not_supplied" />
+		  	<Button
+		        android:id="@+id/btnChangeMedicationInfo"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="0"
+		        android:text="@string/action_change" />
+	  	</LinearLayout>
+	  	
+	    
+	     <TextView
+			    android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:background="@color/background_dark"
+		        android:textColor="@color/text_light"
+		        android:paddingTop="10dp"
+		        android:paddingBottom="10dp"
+		        android:gravity="center"
+				android:text="@string/question_what_medications" />
+	     
+		 <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" >
+	
+		  	<TextView
+		        android:id="@+id/medicationTextAnswers"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:minHeight = "100dp"
+		        android:layout_weight="1"
+		        android:paddingLeft="10dp"
+		        android:text="@string/info_not_supplied" />
+		  	<Button
+		        android:id="@+id/btnChangeListMedicationAnswers"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="0"
+		        android:text="@string/action_change" />
+	  	</LinearLayout>
+	    
+	    <TextView
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/question_eating"
+	        android:background="@color/background_dark"
+	        android:textColor="@color/text_light"
+	        android:paddingTop="10dp"
+	        android:paddingBottom="10dp"
+	        android:gravity="center" />
+	    
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" >
+		
+		    <Spinner
+			    android:id="@+id/selEating"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:paddingLeft="10dp"
+			    android:layout_weight="1"
+			    android:text="@string/info_not_supplied" />
+		    
+		    
+		    <Button
+		        android:id="@+id/btnChangeEatingInfo"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="0"
+		        android:text="@string/action_change" />
+		</LinearLayout>
+	
+	    <Button
+	        android:id="@+id/btnSaveCheckin"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/save_check_in"
+	        android:enabled="true" />
+	
+	
+	
+	</LinearLayout>
+</ScrollView>

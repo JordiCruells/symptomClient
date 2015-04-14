@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+	<LinearLayout 
+	    android:id="@+id/patientCardLayout"
+	    android:layout_width="fill_parent"
+	    android:layout_height="match_parent"
+	    android:orientation="vertical" >
+	    
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" >
+			<TextView
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="4"
+			    android:text="@string/name" />
+		    <TextView
+			    android:id="@+id/txtName"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="6" />
+	    </LinearLayout>
+	    
+	    
+	     <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" >
+			<TextView
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="4"
+			    android:text="@string/age" />
+		    <TextView
+			    android:id="@+id/txtAge"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="6" />
+	    </LinearLayout>
+	    
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" >
+			<TextView
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="4"
+			    android:text="@string/patient_id" />
+		    <TextView
+			    android:id="@+id/txtPatientID"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="6" />
+	    </LinearLayout>
+	    
+	    <View
+			    android:layout_width="fill_parent"
+			    android:layout_height="1dp"
+			    android:background="@android:color/darker_gray"/>
+	    
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" >
+			<TextView
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="4"
+			    android:text="@string/last_checkin_at" />
+		    <TextView
+			    android:id="@+id/txtLastCheckinAt"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="6" />
+	    </LinearLayout>
+	    
+	    
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" >
+			<TextView
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="4"
+			    android:text="@string/pain_level" />
+		    <TextView
+			    android:id="@+id/txtPainLevel"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="6" />
+	    </LinearLayout>
+	    
+	     <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" >
+			<TextView
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="4"
+			    android:text="@string/eating_difficulty" />
+		    <TextView
+			    android:id="@+id/txtEatingDifficulty"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="6" />
+	    </LinearLayout>
+	      
+		<View
+			    android:layout_width="fill_parent"
+			    android:layout_height="1dp"
+			    android:background="@android:color/darker_gray"/>
+		
+		<TextView
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="1"
+			    android:text="@string/pain_evolution_text" />
+
+		<LinearLayout
+		    android:id="@+id/painEvolution"
+		    android:layout_height="60dp"
+			android:layout_width="fill_parent"
+			android:background="@android:color/darker_gray"
+			android:orientation="horizontal"
+			android:gravity="bottom"  >
+		</LinearLayout>
+		
+		<LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" >
+			<Button
+			         android:id="@+id/btnCheckinsList"
+			         android:layout_width="wrap_content"
+			         android:layout_height="wrap_content"
+			         android:layout_weight="1"
+			         android:text="@string/go_to_checkins_list" />
+			     
+			<Button
+			         android:id="@+id/btnChangeMedication"
+			         android:layout_width="wrap_content"
+			         android:layout_height="wrap_content"
+			         android:layout_weight="1"
+			         android:text="@string/change_medication" />
+		</LinearLayout>
+		  
+	
+	</LinearLayout>
+</ScrollView>

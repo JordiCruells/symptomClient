@@ -2,13 +2,11 @@ package org.jcruells.sm.client;
 
 import java.util.Date;
 
-import org.jcruells.sm.client.data.DoctorDatabaseOpenHelper;
-import org.jcruells.sm.client.data.PatientDatabaseOpenHelper;
+import org.jcruells.sm.client.data.User;
+import org.jcruells.sm.client.patient.AlarmsHelper;
 
 import android.app.Application;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
+
 
 
 /* This class is used to store a global
@@ -17,23 +15,38 @@ import android.util.Log;
 
 public class App extends Application {
 	
+	public static final String SERVER = "https://10.0.2.2:8443";
 	public static final String DEBUG_TAG = "SM_DEBUG";
 	public static final String ROLE_DOCTOR = "DOCTOR";
 	public static final String ROLE_PATIENT = "PATIENT";
 	
-	private User user;
-	private SQLiteOpenHelper dbHelper;
-	private SQLiteDatabase db;
-	private Date lastSynch;
-
-	public SQLiteOpenHelper getDbHelper() {
-		return dbHelper;
-	}
-
-	public SQLiteDatabase getDB() {
-		return db;
-	}
+	public static final int MINUTES_ALARM_SEVERE_PAIN = 12 * 60;
+	public static final int MINUTES_ALARM_MODERATE_TO_SEVERE_PAIN = 18 * 60;
+	public static final int MINUTES_ALARM_NO_EAT = 12 * 60;			
 	
+	private User user;
+	private Date lastSynch;
+	private AlarmsHelper alarmsHelper;
+	private String token = null;
+	private boolean userLoggedIn = false;
+	
+	
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	public boolean isUserLoggedIn() {
+		return userLoggedIn;
+	}
+
+	public void setUserLoggedIn(boolean loggedIn) {
+		this.userLoggedIn = loggedIn;
+	}
+
 	public User getUser() {
 		return this.user;
 	}
@@ -48,33 +61,20 @@ public class App extends Application {
 	public boolean isPatientRole() {
 		return this.user.getRole().equals(ROLE_PATIENT);
 	}
-	
-	public void startDB() {
 		
-		Log.d(DEBUG_TAG, "inside satartDB");
-		
-		if (isPatientRole()) {
-			
-			Log.d(DEBUG_TAG, "is patient");
-			dbHelper = new PatientDatabaseOpenHelper(this);
-			db = dbHelper.getWritableDatabase();
-			return;
-		}
-		
-		if (isDoctorRole()) {
-			Log.d(DEBUG_TAG, "is doctor");
-			dbHelper = new DoctorDatabaseOpenHelper(this);
-			db =dbHelper.getWritableDatabase();
-			return;
-		}		
-	}
-
 	public Date getLastSynch() {
 		return lastSynch;
 	}
 
-
 	public void setLastSynch(Date lastSynch) {
 		this.lastSynch = lastSynch;
+	}
+
+	public AlarmsHelper getAlarmsHelper() {
+		return alarmsHelper;
+	}
+
+	public void setAlarmsHelper(AlarmsHelper alarmsHelper) {
+		this.alarmsHelper = alarmsHelper;
 	}
 }

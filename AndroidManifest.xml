@@ -5,10 +5,11 @@
     android:versionName="1.0" >
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
     
     <uses-sdk
         android:minSdkVersion="16"
-        android:targetSdkVersion="18" />
+        android:targetSdkVersion="20" />
 
     <application
         android:allowBackup="true"
@@ -16,6 +17,40 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
         android:name="org.jcruells.sm.client.App">"
+       
+
+	    <provider android:authorities="com.symptom.patient.provider"
+	              android:enabled="true"
+	              android:exported="false"
+	              android:grantUriPermissions="false"
+	              android:icon="@drawable/ic_launcher"
+	              android:initOrder="0"
+	              android:label="@string/app_name"
+	              android:multiprocess="false"
+	              android:name="org.jcruells.sm.client.data.SymptomProvider"
+	              android:syncable="true">
+	    </provider>
+        
+	    <receiver android:name="org.jcruells.sm.client.patient.AlarmReceiver"
+	              android:permission="android.permission.VIBRATE"  >
+        </receiver>
+        <receiver android:name="org.jcruells.sm.client.doctor.PatientAlertReceiver"
+                  android:permission="android.permission.VIBRATE"  >
+            <intent-filter>
+                <action android:name="org.jcruells.sm.client.INCOMING_PATIENT_ALERT" />
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="org.jcruells.sm.client.patient.ChangedMedicationReceiver"
+                  android:permission="android.permission.VIBRATE"  >
+            <intent-filter>
+                <action android:name="org.jcruells.sm.client.CHANGED_MEDICATION_ALERT" />
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+        
+	    <service android:name="org.jcruells.sm.client.services.SyncService" />
+	    
         <activity
             android:name="org.jcruells.sm.client.LoginScreenActivity"
             android:label="@string/app_name" >
@@ -24,26 +59,58 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+      
         <activity
-            android:name="org.jcruells.sm.client.VideoListActivity"
-            android:label="@string/title_activity_video_list" >
+            android:name="org.jcruells.sm.client.doctor.PatientsAlarmsListActivity"
+            android:label="@string/title_activity_alarms_list" >
         </activity>
         <activity
-            android:name="org.jcruells.sm.client.doctor.PatientsListActivity"
-            android:label="@string/title_activity_patients_list" >
+            android:name="org.jcruells.sm.client.doctor.PatientCardActivity"
+            android:label="@string/title_activity_patient_card" >
         </activity>
         <activity
             android:name="org.jcruells.sm.client.doctor.DoctorActivity"
-            android:label="@string/title_activity_patients_list" >
+            android:label="@string/title_doctor_activity" >
         </activity>
         <activity
             android:name="org.jcruells.sm.client.patient.CheckinsListActivity"
             android:label="@string/title_activity_checkins_list" >
         </activity>
-         <activity
+        <activity
             android:name="org.jcruells.sm.client.patient.PatientActivity"
             android:label="@string/title_activity_checkins_list" >
         </activity>
+        <activity
+            android:name="org.jcruells.sm.client.patient.CheckInActivity"
+            android:label="@string/title_activity_checkin" >
+        </activity>
+        <activity
+            android:name="org.jcruells.sm.client.patient.CheckinMedicationActivity"
+            android:label="@string/title_activity_medication_checkin" >
+        </activity>
+        <activity
+            android:name="org.jcruells.sm.client.patient.CheckinMedicationListActivity"
+            android:label="@string/title_activity_medication_list_checkin" >
+        </activity>
+        <activity
+            android:name="org.jcruells.sm.client.doctor.PatientMedicationListActivity"
+            android:label="@string/title_activity_your_medication" >
+        </activity>
+         <activity
+            android:name="org.jcruells.sm.client.doctor.ChangeMedicationsActivity"
+            android:label="@string/title_activity_patient_medication" >
+        </activity>
+        <activity
+            android:name="org.jcruells.sm.client.patient.AlarmsSetupActivity"
+            android:label="@string/title_activity_setup_alarms" >
+        </activity>
+         <activity
+            android:name="org.jcruells.sm.client.patient.EditAlarmActivity"
+            android:label="@string/title_activity_edit_alarm" >
+        </activity>
+        
+         
+        
     </application>
 
 </manifest>

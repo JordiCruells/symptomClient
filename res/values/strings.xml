@@ -3,16 +3,133 @@
 
     <string name="app_name">Symptom Management</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
     <string name="userName">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="server">Server IP or Hostname</string>
-    <string name="localhost">https://10.0.2.2:8443</string>
-    <string name="title_activity_video_list">VideoListActivity</string>
-    <string name="doctor">Doctor</string>
+    <string name="doctor">Doctor name:</string>
+    <string name="last_sync">Last synchronization:</string>
     <string name="patient">Patient</string>
-    <string name="title_activity_patients_list">Patient\'s list</string>
+    <string name="name">Name</string>
+    <string name="lastName">Last name</string>
+    <string name="phone">Phone</string>
+    <string name="age">Age</string>
+    <string name="patient_id">Patient ID</string>
+    <string name="pain_level">Pain level</string>
+    <string name="eating_difficulty">Eating difficulty</string>
+    <string name="login_as">Login as:</string>
+    
+    
+    <string name="action_view">View</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_new">New</string>    
+    <string name="action_change">Change</string>
+    <string name="action_accept">Accept</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_save">Save</string>
+    <string name="action_close">Close</string>
+    <string name="action_add_remove">Add/remove</string>
+    <string name="action_add_alarm">Add reminder</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_synchronize">Synchronize</string>
+    <string name="action_search">Search</string>
+    <string name="show_alarms">Alarms</string>
+    <string name="no_alarms">There are no alarms</string>
+    <string name="no_patients">There are no patients</string>
+    <string name="no_checkins">There are no check-ins</string>
+    
+    <string name="title_activity_patients_list">List of patients</string>
     <string name="title_activity_checkins_list">Check-in\'s list</string>
+    <string name="title_activity_medication_checkin">Check-in medication time</string>
+    <string name="title_activity_medication_list_checkin">Check-in medication questions</string>
+    <string name="title_activity_alarms_list">Recent alarms</string>
+    <string name="title_activity_patient_card">Patient card</string>
+    <string name="title_activity_patient_medication">%1$s\'s medication</string>
+    <string name="title_activity_your_medication">Your medication</string>
+    <string name="title_activity_setup_alarms">Setup reminders</string>
+    <string name="title_activity_checkin">%1$s check-in</string>
+    <string name="title_activity_edit_alarm">Edit alarm</string>
+    <string name="title_doctor_activity">Doctor panel</string>
+    
+    
+    <string name="new_check_in">New Check-in</string>
+    <string name="save_check_in">Save Check-in</string>
+    <string name="alarms_setup">Reminders</string>
+    <string name="patients_list">Patients</string>
+    <string name="checkins_list">Checkins</string>
+    
+    
+    <string name="question_pain">How bad is your mouth pain/sore throat ?</string>
+    <string name="question_medication">Did you take your pain medication ?</string>
+    <string name="question_eating">Does your pain stop you from eating/drinking ?</string>
+    <string name="question_time_medication">What day/hour did you take it ?</string>
+    <string name="question_what_medications">What medications did you take ?</string>
+    <string name="question_template_medication">Did you take your %1$s ?</string>
+    
+    <string name="answer_medication_yes">Medication taken at %1$s</string>
+    <string name="answer_medication_no">Medication not taken</string>
+    
+    <string name="answer_list_medications">You have taken %1$s</string>
+    <string name="answer_list_medications_none">You have not taken any medication</string>
+    
+    <string-array name="answers_pain_level">
+        <item>Not supplied</item>
+        <item>Well-controlled</item>
+        <item>Moderate</item>
+        <item>Severe</item>
+    </string-array>
+    
+    <string-array name="answers_eating">
+        <item>Not supplied</item>
+        <item>No</item>
+        <item>Some</item>
+        <item>I can\'t eat</item>
+    </string-array>
+    
+
+    <string name="info_pain_medication">Did you take your %1$s ?</string>
+    <string name="info_pain_medication_not_taken">No, I didn\'t take my pain medication</string>
+    <string name="info_not_supplied">Not supplied</string>
+    
+    <string name="change_day">Change date</string>
+    <string name="change_time">Change time</string>
+    
+    <string name="list_delimiter">", "</string>
+    <string name="end_list_delimiter">" and "</string>
+    
+    <string name="status_OK_inserted_checkin">The checkin has been successfully saved</string>
+    <string name="status_KO_inserted_checkin">Unable to save the checkin</string>
+    
+    <string name="last_checkin_at">"Last check-in at "</string>
+    <string name="severe_pain_text">"More than %1$d hours of severe pain. "</string>
+    <string name="moderate_to_severe_pain_text">"More than %1$d hours of moderate to severe pain. "</string>
+    <string name="no_eating_text">"More than %1$d hours without eating. "</string>
+    
+    <string name="pain_evolution_text">"Latest pain evolution"</string>
+    <string name="change_medication">"Medication"</string>
+    <string name="view_medication">"Medication"</string>
+    <string name="go_to_checkins_list">Check-in\'s</string>
+    <string name="last_checkin">"Last check-in"</string>    
+    <string name="from_date">From %1$s</string>
+    
+    <string name="activate_alarm">Activate alarm</string>
+    <string name="alarm_time">Time</string>
+    <string name="alarm_vibrate">Vibrate</string>
+    
+    <string name="alarm_ticker_text">"New symptom management check-in is scheduled at "</string>
+    <string name="alarm_content_title">"Symptom Management"</string>
+    <string name="alarm_content_text">"Introduce your check-in data"</string>
+    
+    <string name="patient_alert_ticker_text">"New alerts received "</string>
+    <string name="patient_alert_content_title">"Symptom Management"</string>
+    <string name="patient_alert_content_text">"You have new alerts"</string>
+    
+    <string name="changed_medication_ticker_text">"New medication receipted "</string>
+    <string name="changed_medication_content_title">"Symptom Management"</string>
+    <string name="changed_medication_content_text">"View your new medication"</string>
+    
+    <string name="search_patient">Search patient</string>
+    <string name="search_patient_text">"Leave empty to get all"</string>
+   
 
 </resources>

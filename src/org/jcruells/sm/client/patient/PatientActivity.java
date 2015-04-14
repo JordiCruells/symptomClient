@@ -4,7 +4,7 @@ package org.jcruells.sm.client.patient;
 
 import org.jcruells.sm.client.App;
 import org.jcruells.sm.client.R;
-import org.jcruells.sm.client.User;
+import org.jcruells.sm.client.data.User;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -39,7 +39,7 @@ public class PatientActivity extends Activity {
 		super.onResume();
 		Log.d(App.DEBUG_TAG, "PatientActivity onResume");
 		User user = context.getUser();
-		patientName_.setText("Name: " + user.getName() + " Last name:" + user.getLastName() + " Medical Record: " + user.getRecordNumber() + " Birth Date: " + user.getBirthDate() );;
+		//patientName_.setText("Name: " + user.getName() + " Last name:" + user.getLastName() + " Medical Record: " + user.getRecordNumber() + " Birth Date: " + user.getBirthDate() );;
 	}
 	
 	

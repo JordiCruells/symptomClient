@@ -1,16 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:id="@+id/checkinsLayout" >
 
+     <!-- 
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >  
+         
+        <Button
+        android:id="@+id/btnAddCheckIn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/new_check_in" />
+        
+        <Button
+        android:id="@+id/btnSetupAlarms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/alarms_setup" />       
+        <Button
+        android:id="@+id/btnSynchronize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/action_synchronize" />
+        
+	</LinearLayout>   
+    -->
+
+    <TextView
+        android:id="@+id/noCheckins"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_checkins" />
+    
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@android:id/list"
+        android:id="@+id/listCheckIns"
         android:divider="#FFFFFF"
     	android:dividerHeight="7dp"
     	android:listSelector="@drawable/list_selector"/>
 
+    
    
-</RelativeLayout>
+</LinearLayout>

@@ -12,7 +12,7 @@ import java.util.concurrent.Executor;
 
 import org.apache.commons.io.IOUtils;
 import org.jcruells.sm.client.App;
-import org.jcruells.sm.client.User;
+import org.jcruells.sm.client.data.User;
 
 import retrofit.Endpoint;
 import retrofit.ErrorHandler;
@@ -62,24 +62,23 @@ public class SecuredRestBuilder extends RestAdapter.Builder {
 
 	private class OAuthHandler implements RequestInterceptor {
 
-		private boolean loggedIn;
 		private Client client;
 		private String tokenIssuingEndpoint;
 		private String userDataEndpoint;
-		private Application context;
+		private App app;
 		private String username;
 		private String password;
 		private String clientId;
 		private String clientSecret;
 		private String accessToken;
 
-		public OAuthHandler(Client client, String tokenIssuingEndpoint, String userDataEndpoint, Application context, String username,
+		public OAuthHandler(Client client, String tokenIssuingEndpoint, String userDataEndpoint, App app, String username,
 				String password, String clientId, String clientSecret) {
 			super();
 			this.client = client;
 			this.tokenIssuingEndpoint = tokenIssuingEndpoint;
 			this.userDataEndpoint =userDataEndpoint;
-			this.context = context;
+			this.app = app;
 			this.username = username;
 			this.password = password;
 			this.clientId = clientId;
@@ -103,9 +102,11 @@ public class SecuredRestBuilder extends RestAdapter.Builder {
 
 			android.util.Log.d(App.DEBUG_TAG, "SecuredRestBuilder intercept");
 			
+			android.util.Log.d(App.DEBUG_TAG, "logged in: " + app.isUserLoggedIn());
+			
 			
 			// If we're not logged in, login and store the authentication token.
-			if (!loggedIn) {
+			if (!app.isUserLoggedIn()) {
 				
 				android.util.Log.d(App.DEBUG_TAG, "in if intercept");
 				
@@ -150,9 +151,11 @@ public class SecuredRestBuilder extends RestAdapter.Builder {
 					if (resp.getStatus() < 200 || resp.getStatus() > 299) {
 						
 						android.util.Log.d(App.DEBUG_TAG, "bad credentials 1");
+						app.setUserLoggedIn(false);
 						// If not, we probably have bad credentials
 						throw new SecuredRestException("Login failure: "
 								+ resp.getStatus() + " - " + resp.getReason());
+						
 					} else {
 						// Extract the string body from the response
 						
@@ -167,7 +170,7 @@ public class SecuredRestBuilder extends RestAdapter.Builder {
 				        
 						accessToken = new Gson().fromJson(body, JsonObject.class).get("access_token").getAsString();
 						
-						
+						app.setToken(accessToken);
 						
 						//Add the login to request the user's data whenever a successful login is done
 						List<Header> lh = new ArrayList<Header>();
@@ -194,16 +197,28 @@ public class SecuredRestBuilder extends RestAdapter.Builder {
 							// Obtain user from message body and store it the application object (context)
 							body = IOUtils.toString(respUserData.getBody().in());
 							
+							android.util.Log.d(App.DEBUG_TAG, "BODY:" + body);
+							
 							Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 							User user = (User) (gson.fromJson(body, User.class));
 							
-							android.util.Log.d(App.DEBUG_TAG, "user saved to application");
+							android.util.Log.d(App.DEBUG_TAG, "username: " + username);
+							android.util.Log.d(App.DEBUG_TAG, "password: " + password);
 							
-							App app = (App) context;
+							android.util.Log.d(App.DEBUG_TAG, "user saved to application");
+							android.util.Log.d(App.DEBUG_TAG, "-------------------------------");
+							
+							android.util.Log.d(App.DEBUG_TAG, "user ID: " + user.getId());
+							/*android.util.Log.d(App.DEBUG_TAG, "getBirthDate: " + user.getBirthDate());
+							android.util.Log.d(App.DEBUG_TAG, "getLastName: " + user.getLastName());
+							android.util.Log.d(App.DEBUG_TAG, "getName: " + user.getName());*/
+							android.util.Log.d(App.DEBUG_TAG, "getRecordNumber: " + user.getRecordNumber());
+							android.util.Log.d(App.DEBUG_TAG, "getPassword: " + user.getPassword());
+							android.util.Log.d(App.DEBUG_TAG, "getUsername: " + user.getUsername());
+							
 							app.setUser(user);
 							
-							android.util.Log.d(App.DEBUG_TAG, "call to initializeDB");
-							app.startDB();
+							android.util.Log.d(App.DEBUG_TAG, "app user ID: " + app.getUser().getId());
 							
 							android.util.Log.d(App.DEBUG_TAG, "user is:" + user);
 							
@@ -212,7 +227,7 @@ public class SecuredRestBuilder extends RestAdapter.Builder {
 							request.addHeader("Authorization", "Bearer " + accessToken);	
 							
 							// Let future calls know we've already fetched the access token
-							loggedIn = true;
+							app.setUserLoggedIn(true);
 						}
 							
 					}
@@ -223,7 +238,7 @@ public class SecuredRestBuilder extends RestAdapter.Builder {
 			else {
 				// Add the access_token that we previously obtained to this request as 
 				// the "Authorization" header.
-				request.addHeader("Authorization", "Bearer " + accessToken );
+				request.addHeader("Authorization", "Bearer " + app.getToken());
 			}
 		}
 
@@ -232,7 +247,7 @@ public class SecuredRestBuilder extends RestAdapter.Builder {
 	private String username;
 	private String password;
 	private String loginUrl;
-	private Application context;
+	private App app;
 	private String userDataUrl;
 	private String clientId;
 	private String clientSecret = "";
@@ -248,8 +263,8 @@ public class SecuredRestBuilder extends RestAdapter.Builder {
 		return this;
 	}
 	
-	public SecuredRestBuilder setContext(Application context){
-		this.context= context;
+	public SecuredRestBuilder setApp(App app){
+		this.app= app;
 		return this;
 	}
 	
@@ -341,6 +356,8 @@ public class SecuredRestBuilder extends RestAdapter.Builder {
 		return this;
 	}
 	
+	
+	
 		
 
 	@Override
@@ -354,7 +371,7 @@ public class SecuredRestBuilder extends RestAdapter.Builder {
 		if (client == null) {
 			client = new OkClient();
 		}
-		OAuthHandler hdlr = new OAuthHandler(client, loginUrl, userDataUrl, context, username, password, clientId, clientSecret);
+		OAuthHandler hdlr = new OAuthHandler(client, loginUrl, userDataUrl, app, username, password, clientId, clientSecret);
 		setRequestInterceptor(hdlr);
 
 		return super.build();
